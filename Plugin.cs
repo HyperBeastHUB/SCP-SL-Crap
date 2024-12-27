@@ -1,18 +1,18 @@
 ﻿using Exiled.API.Features;
-using Exiled.Events.EventArgs.Player;
-using Exiled.Loader;
-using player=Exiled.Events.Handlers.Player;
+using player = Exiled.Events.Handlers.Player;
 using System;
 
-namespace scp_sl
+namespace WelcomeMessage
 {
-    public class Class1 : Plugin<WelcomeMessage.config>
+    public class Plugin : Plugin<Config>
     {
-        public static Class1 Instance;
-        public override string Author => "HyperBeast";
-        public override Version Version => new Version(1, 2, 0);
-        public override string Name => $"WelcomeText by{Author}";
+        public static Plugin Instance { get; private set; }
+
+        public override string Author => "HyperBeast"; 
+        public override Version Version => new Version(1, 3, 0);
+        public override string Name => "WelcomeText";  
         public override Version RequiredExiledVersion => new Version(9, 1, 0);
+
         public override void OnEnabled()
         {
             Instance = this;
@@ -22,8 +22,8 @@ namespace scp_sl
 
         public override void OnDisabled()
         {
-            Instance = null;
             player.Verified -= EventHandlers.Verified.OnVerified;
+            Instance = null;
             base.OnDisabled();
         }
     }
