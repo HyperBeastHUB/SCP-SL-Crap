@@ -11,7 +11,13 @@ namespace scp_sl.EventHandlers
     {    
         public static void OnVerified(VerifiedEventArgs ev)
         {
-            ev.Player.ShowHint("Welcome to the server?", Class1.Instance.Config.Length);
+            string ColoredText = $"<b><color={Class1.Instance.Config.Color.ToLower()}>{Class1.Instance.Config.Text}</color></b>";
+            if(Class1.Instance.Config.Position.ToLower()=="middle")
+                ev.Player.ShowHint(ColoredText, Class1.Instance.Config.Time);
+            if (Class1.Instance.Config.Position.ToLower() == "top")
+                ev.Player.Broadcast(Class1.Instance.Config.Time, ColoredText);
+            if (Class1.Instance.Config.Position.ToLower() != "top" && Class1.Instance.Config.Position.ToLower()!= "middle")
+                ev.Player.Broadcast(15,"<b><color=red>Welcome Text Error! Please Make sure that the position is set Correctly to 'Top' or 'Mid'!</color></b>");
         }
     }
 }
